@@ -1,58 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour, IHandler
 {
+    #region Events
+    public static event Action onLaunched;
+    #endregion
     #region Variables
-    [SerializeField] private PlayerStatsSO playerStatsSO;
-
-    private StatSystem _statSystem;
-    private HealthSystem _healthSystem;
-
+    private float extraForce;
+    private Rigidbody2D sledRB;
     #endregion
     #region Initialize
     public void Initialize()
     {
+        UIHandler.OnLaunchSled += Launch;
         SetupPlayer();
     }
 
     #endregion
 
     #region Get Functions
-    public HealthSystem GetHealthSystem()
-    {
-        return _healthSystem;
-    }
-
-    public StatSystem GetStatSystem()
-    {
-        return _statSystem;
-    }
 
     #endregion
 
     #region Handle Player Functions
-
-    public void HandleDeath()
+    private void Launch(int _count)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Launch");
+        extraForce = (float)_count;
+        Vector2 _newForce = new Vector2(GameManager.i.GetStatSystem().GetBaseMoveSpeed() + extraForce*5f, 0f);
+        sledRB.AddForce(_newForce, ForceMode2D.Impulse);
+        onLaunched?.Invoke();
     }
 
-    public void UpdateHealth()
+    public void SlowMomentum()
     {
-        throw new System.NotImplementedException();
+        sledRB.drag = 3f;
     }
+
     #endregion
 
     #region Player Setup
     private void SetupPlayer()
     {
-        _statSystem = new StatSystem(playerStatsSO);
-        _healthSystem = new HealthSystem(_statSystem.GetPlayerHealth());
-        GetComponent<IInputHandler>().Initialize();
-        GetComponent<IAttackHandler>().Initialize();
+        sledRB = GetComponent<Rigidbody2D>();
     }
     #endregion
 }

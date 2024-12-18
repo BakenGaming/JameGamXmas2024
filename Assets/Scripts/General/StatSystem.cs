@@ -4,26 +4,19 @@ using UnityEngine;
 
 public class StatSystem
 {
-    private int health;
-    private float moveSpeed;
-    private float jumpPower;
+    private int maxCount;
+    private float baseMoveSpeed;
+    private float clickTimer;
 
-    public StatSystem (PlayerStatsSO _stats)
+    public StatSystem (GameStats _stats)
     {
-        health = _stats.health;
-        moveSpeed = _stats.moveSpeed;
-        jumpPower = _stats.jumpPower;
+        maxCount = _stats.maxCount;
+        baseMoveSpeed = _stats.baseMoveSpeed;
+        clickTimer = _stats.clickTimer;
 
     }
 
-    public StatSystem (EnemyStatsSO _stats)
-    {
-        health = _stats.health;
-        moveSpeed = _stats.moveSpeed;
-
-    }
-
-    public int GetPlayerHealth (){return health;}
-    public float GetMoveSpeed(){return moveSpeed;}
-    public float GetJumpPower(){return jumpPower;}
+    public int GetMaxCount (){return maxCount;}
+    public float GetBaseMoveSpeed(){return baseMoveSpeed;}
+    public float GetClickTimer(){return clickTimer;}
 }
