@@ -7,60 +7,75 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     #region Events
-    public static event Action<int> OnLaunchSled;
+    
     #endregion
 
     #region Variables
-    [SerializeField] private TextMeshProUGUI countText;
-    [SerializeField] private TextMeshProUGUI timerText;
-    
-    private float countDownTimer;
-    private int mainCount, maxCount;
-    private bool gameStarted=false, isLaunching=false;
+    [SerializeField] private TextMeshProUGUI cookieText;
+    [SerializeField] private TextMeshProUGUI presentText;
+    [SerializeField] private TextMeshProUGUI boostText;
+
+    private bool gameStarted=false;
 
     #endregion
 
     #region Initialize
-    public void Initialize()
+    private void OnEnable() 
     {
-        mainCount = 0;
-        countDownTimer = GameManager.i.GetStatSystem().GetClickTimer();
-        maxCount = GameManager.i.GetStatSystem().GetMaxCount();
-        UpdateUI();
-        
+        GameManager.onGameReady += Initialize;    
+    }
+    private void Initialize()
+    {
+        PlayerInputController_TopDown.OnBoostingActive += UpdateBoostUI;
+        PlayerInputController_TopDown.OnCookieShot += UpdateCookieUI;
+        PlayerInputController_TopDown.OnPresentThrown += UpdatePresentUI;
+        PlayerInputController_TopDown.OnItemCollected += HandleUIOnCollection;
+        UpdateCookieUI(GameManager.i.GetInitialCookieCount());
+        UpdatePresentUI(GameManager.i.GetInitialPresentCount());
+        UpdateBoostUI(GameManager.i.GetInitialBoost());
+    }
+
+    private void OnDisable() 
+    {
+        GameManager.onGameReady -= Initialize;
+        PlayerInputController_TopDown.OnBoostingActive -= UpdateBoostUI;
+        PlayerInputController_TopDown.OnCookieShot -= UpdateCookieUI;
+        PlayerInputController_TopDown.OnPresentThrown -= UpdatePresentUI;
     }
 
     #endregion
 
-    #region Loop
-    public void OnButtonClick()
-    {
-        if(!gameStarted) gameStarted = true;
+    #region UI Updates
 
-        if(countDownTimer >= 0 && mainCount < maxCount)
+    private void HandleUIOnCollection(LootType _type, float _value)
+    {
+        switch(_type)
         {
-            mainCount++;
+            case LootType.cookies:
+            UpdateCookieUI((int)_value);
+            break;
+
+            case LootType.candyCane:
+            UpdateBoostUI(_value);
+            break;
+
+            default: break;
         }
     }
 
-    private void Update() 
+    private void UpdateCookieUI(int _count)
     {
-        UpdateUI();
-        if(gameStarted && countDownTimer >= 0) countDownTimer -= Time.deltaTime;   
-
-        if(!isLaunching && countDownTimer <= 0) 
-        {
-            isLaunching = true;
-            OnLaunchSled?.Invoke(mainCount); 
-        }
+        cookieText.text = "COOKIES : " + _count.ToString();
     }
 
-    private void UpdateUI()
+    private void UpdatePresentUI(int _count)
     {
-        countText.text = mainCount.ToString();
-        
-        if(countDownTimer > 0) timerText.text = countDownTimer.ToString("##.#");
-        else timerText.text = "0";
+        presentText.text = "PRESENTS : " + _count.ToString();
+    }
+
+    private void UpdateBoostUI(float _amount)
+    {
+        boostText.text = "BOOST : " + _amount.ToString("##.#");
     }
     #endregion
 }

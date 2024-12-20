@@ -9,26 +9,20 @@ public class CameraController : MonoBehaviour
     private void OnEnable() 
     {
         GameManager.onGameReady += Initialize;
-        PlayerHandler.onLaunched += SetCameraTarget;
     }
     private void OnDisable() 
     {
         GameManager.onGameReady -= Initialize;  
-        PlayerHandler.onLaunched -= SetCameraTarget;
     }
     private void Initialize()
     {
         Debug.Log("Camera Initialized");
         _mainCam = Camera.main;
-        _cameraTarget = null;
+        _cameraTarget = GameManager.i.GetPlayerGO().transform;
     }
 
     private void Update() 
     {
-        _mainCam.transform.position = new Vector3(_cameraTarget.position.x, _mainCam.transform.position.y, _mainCam.transform.position.z);        
-    }
-    private void SetCameraTarget()
-    {
-        _cameraTarget = GameManager.i.GetSledGO().transform;
+        _mainCam.transform.position = new Vector3(_mainCam.transform.position.x, _cameraTarget.position.y, _mainCam.transform.position.z);        
     }
 }

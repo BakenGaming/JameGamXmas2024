@@ -5,25 +5,27 @@ using UnityEngine.Audio;
 
 public class StaticVariables : MonoBehaviour
 {
-    #region variables
     public static StaticVariables i;
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer, whatIsEnemy, 
-        whatIsCollectable, whatIsUI;
+        collectable, whatIsUI, whatIsCookie, whatIsSnowball, whatIsPresent;
     [SerializeField] private AudioMixerGroup masterMixer, sfxMixer, musicMixer;
-    #endregion
+
     private void Awake() 
     {
         i = this;
     }
 
-    #region GetFunctions
     public LayerMask GetGroundLayer() { return whatIsGround; }
     public LayerMask GetPlayerLayer() { return whatIsPlayer; }
     public LayerMask GetEnemyLayer() { return whatIsEnemy; }
-    public LayerMask GetCollectableLayer() { return whatIsCollectable; }
+    public LayerMask GetCollectableLayer() { return collectable; }
     public LayerMask GetUILayer(){ return whatIsUI; }
+    public LayerMask GetCookieLayer(){ return whatIsCookie;}
+    public LayerMask GetSnowballLayer(){ return whatIsSnowball;}
+    public LayerMask GetPresentLayer(){ return whatIsPresent;}
+    
     public AudioMixerGroup GetMasterMixer(){ return masterMixer; }
     public AudioMixerGroup GetSFXMixer(){ return sfxMixer; }
     public AudioMixerGroup GetMusicMixer(){ return musicMixer; }
-    #endregion
+
 }

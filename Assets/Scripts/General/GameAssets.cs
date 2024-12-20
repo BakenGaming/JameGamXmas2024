@@ -23,8 +23,10 @@ public class GameAssets : MonoBehaviour
     }
 
     public Transform pfSysMessage;
+    public Transform pfDamagePopup;
     public Transform pfTextPopup;
-    public GameObject pfSledObject;
+    public GameObject pfPlayerObject;
+    public GameObject pfProjectileBase;
   
     public SoundAudioClip[] audioClipArray;
     public MusicAudioClip[] musicTrackArray;

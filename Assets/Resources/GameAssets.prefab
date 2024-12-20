@@ -46,5 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfSysMessage: {fileID: 0}
   pfDamagePopup: {fileID: 0}
+  pfTextPopup: {fileID: 6214723913669771062, guid: 16819df88666f5846aad6d173e392409, type: 3}
+  pfPlayerObject: {fileID: 9187117150498859108, guid: b482c03cc35615646ace683cb8968bda, type: 3}
+  pfProjectileBase: {fileID: 3212248445877958099, guid: 5f5f27da244fb5843ab38011401f30a0, type: 3}
   audioClipArray: []
   musicTrackArray: []
