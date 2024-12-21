@@ -49,5 +49,7 @@ MonoBehaviour:
   pfTextPopup: {fileID: 6214723913669771062, guid: 16819df88666f5846aad6d173e392409, type: 3}
   pfPlayerObject: {fileID: 9187117150498859108, guid: b482c03cc35615646ace683cb8968bda, type: 3}
   pfProjectileBase: {fileID: 3212248445877958099, guid: 5f5f27da244fb5843ab38011401f30a0, type: 3}
+  pfCandyCane: {fileID: 2610215278755995407, guid: a6a7b0c89bf0f8e4f82d141494c018c5, type: 3}
+  pfCookie: {fileID: 9002713330314495599, guid: df808e727e55f7a4e86e335edafe487b, type: 3}
   audioClipArray: []
   musicTrackArray: []

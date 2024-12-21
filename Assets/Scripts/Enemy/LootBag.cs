@@ -22,13 +22,39 @@ public class LootBag : MonoBehaviour
 
         if (dropItem != null)
         {
-            GameObject newItem = Instantiate(dropItem.lootGO, transform.position, Quaternion.identity);
-            newItem.GetComponent<ICollectable>().Initialize(dropItem);
+            if(dropItem.lootType == LootType.candyCane)
+            {
+                CandyCane newCandyCaneLoot = ObjectPooler.DequeueObject<CandyCane>("CandyCane");
+                newCandyCaneLoot.transform.position = transform.position;
+                newCandyCaneLoot.gameObject.SetActive(true);
+                newCandyCaneLoot.Initialize(dropItem);
+            }
+
+            if(dropItem.lootType == LootType.cookies)
+            {
+                Cookie newCookieLoot = ObjectPooler.DequeueObject<Cookie>("CookieRefill");
+                newCookieLoot.transform.position = transform.position;
+                newCookieLoot.gameObject.SetActive(true);
+                newCookieLoot.Initialize(dropItem);
+            }
         }
         else
         {
-            GameObject newItem = Instantiate(defaultItem.lootGO, transform.position, Quaternion.identity);
-            newItem.GetComponent<ICollectable>().Initialize(dropItem);
+            if(defaultItem.lootType == LootType.candyCane)
+            {
+                CandyCane newCandyCaneLoot = ObjectPooler.DequeueObject<CandyCane>("CandyCane");
+                newCandyCaneLoot.transform.position = transform.position;
+                newCandyCaneLoot.gameObject.SetActive(true);
+                newCandyCaneLoot.Initialize(defaultItem);
+            }
+
+            if(defaultItem.lootType == LootType.cookies)
+            {
+                Cookie newCookieLoot = ObjectPooler.DequeueObject<Cookie>("CookieRefill");
+                newCookieLoot.transform.position = transform.position;
+                newCookieLoot.gameObject.SetActive(true);
+                newCookieLoot.Initialize(defaultItem);
+            }
         }
 
     }

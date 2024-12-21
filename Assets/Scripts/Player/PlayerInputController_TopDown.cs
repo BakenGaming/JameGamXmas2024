@@ -22,7 +22,7 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
     public delegate void OnFireWeapon(Vector3 mousePos);
     public delegate void OnThrowPresent(Vector3 mousePos);
     private StatSystem _playerStats;
-    private InputAction _move, _attack, _throw, _pause;
+    private InputAction _move, _attack, _throw, _boost, _pause;
     private GameControls _controller;
     private Vector2 moveInput, lookDir;
     private Rigidbody2D playerRB;
@@ -57,6 +57,11 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
         _pause.performed += HandlePauseInput;
         _pause.Enable();
 
+        _boost = _controller.TopDownControls.Boost;
+        _boost.started += HandleBoostInputActivate;
+        _boost.canceled += HandleBoostInputDeactivate;
+        _boost.Enable();
+
         boostAmount = _playerStats.GetBoostAmount();
         boostAvailable = true;
         boostActive = false;
@@ -68,6 +73,7 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
         CandyCane.OnCandyCaneCollected += CollectCandyCane;    
 
     }
+
 
     private void OnDisable()
     {
@@ -108,6 +114,14 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
         }
         
     }
+    private void HandleBoostInputActivate(InputAction.CallbackContext context)
+    {
+        if(boostAvailable) boostActive = true;
+    }
+    private void HandleBoostInputDeactivate(InputAction.CallbackContext context)
+    {
+        if(boostActive) boostActive = false;
+    }
     private void HandlePauseInput(InputAction.CallbackContext context)
     {
         if(!GameManager.i.GetIsPaused()) OnPauseGame?.Invoke();
@@ -135,31 +149,15 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
         
         Vector3 mousePosition = Input.mousePosition;
         Vector3 screenPoint = mainCam.WorldToScreenPoint(transform.localPosition);
-
-        Flip(mousePosition.x, screenPoint.x);
-        
+       
         Vector2 moveSpeed = moveInput.normalized;
-        if(moveSpeed.y > 0  && boostAvailable)
-        {
-                boostActive = true;
-                BoostMovement(moveSpeed);
-        }
-        else if(moveSpeed.y < 0)
-        {
-            boostActive = false;
-            playerRB.velocity = new Vector2(moveInput.x * _playerStats.GetMoveSpeed(), GameManager.i.GetConstantSpeed() *.5f);    
-        }
-
-        else
-        {
-            boostActive = false;
-            playerRB.velocity = new Vector2(moveInput.x * _playerStats.GetMoveSpeed(), GameManager.i.GetConstantSpeed());    
-        }
+        if(!boostActive) playerRB.velocity = new Vector2(moveInput.x * _playerStats.GetMoveSpeed(), moveInput.y * .5f * _playerStats.GetMoveSpeed());    
+        else BoostMovement(moveSpeed);
     }
 
     private void BoostMovement(Vector2 moveSpeed)
     {
-        playerRB.velocity = new Vector2(moveInput.x * _playerStats.GetMoveSpeed(), GameManager.i.GetConstantSpeed() + (moveSpeed.y * _playerStats.GetMoveSpeed()));    
+        playerRB.velocity = new Vector2(moveInput.x * _playerStats.GetMoveSpeed(), MathF.Abs(moveInput.y) * .5f * (_playerStats.GetMoveSpeed() *2.5f));    
     }
     private void UpdateTimers()
     {
@@ -193,16 +191,6 @@ public class PlayerInputController_TopDown : MonoBehaviour, IInputHandler
     }
     #endregion
     #region Checks
-    private void Flip(float mPosX, float sPtX)
-    {
-        if (mPosX < sPtX)
-        {
-            transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else
-        {
-            transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = true;
-        }
-    }
+
     #endregion
 }

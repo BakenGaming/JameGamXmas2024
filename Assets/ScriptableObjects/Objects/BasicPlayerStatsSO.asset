@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BasicPlayerStatsSO
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 10
+  moveSpeed: 20
   timeBetweenShots: 0.5
   timeBetweenThrows: 0.4
-  boostAmount: 1
-  cookieMax: 3
+  boostAmount: 5
+  cookieMax: 5
   presentMax: 10

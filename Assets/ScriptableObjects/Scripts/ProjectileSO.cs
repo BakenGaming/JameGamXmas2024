@@ -11,7 +11,7 @@ public class ProjectileSO : ScriptableObject
 {
     public string projectileName;
     public ProjectileType projectileType;
-    public Sprite projectileSprite;
+    public Sprite[] projectileSprite;
     public float projectileSpeed;
     public float lifeTime;
 }

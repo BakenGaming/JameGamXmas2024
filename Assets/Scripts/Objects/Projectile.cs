@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour
         target = _target;
         projectileSO = _projectileSO;
         projectileSR = GetComponent<SpriteRenderer>();
-        projectileSR.sprite = projectileSO.projectileSprite;
+        projectileSR.sprite = projectileSO.projectileSprite[UnityEngine.Random.Range(0,projectileSO.projectileSprite.Length)];
         projectileRB = GetComponent<Rigidbody2D>();
         lifeTimer = _projectileSO.lifeTime;
 
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         _type = _projectileSO.projectileType;
         projectileSO = _projectileSO;
         projectileSR = GetComponent<SpriteRenderer>();
-        projectileSR.sprite = projectileSO.projectileSprite;
+        projectileSR.sprite = projectileSO.projectileSprite[UnityEngine.Random.Range(0,projectileSO.projectileSprite.Length)];
         projectileRB = GetComponent<Rigidbody2D>();
         lifeTimer = _projectileSO.lifeTime;
 

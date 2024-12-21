@@ -8,12 +8,6 @@ public class Magnet : MonoBehaviour
     private Collider2D[] colliders;
     private GameObject player;
 
-    private void Start()
-    {
-        player = GameManager.i.GetPlayerGO();
-    }
-
-
     private void Update()
     {
         if (GameManager.i.GetIsPaused()) return;
@@ -24,7 +18,7 @@ public class Magnet : MonoBehaviour
             foreach (Collider2D collider in colliders)
             {
                 ICollectable collectable = collider.GetComponent<ICollectable>();
-                if (collectable != null) collectable.SetTarget(player.transform.position);
+                if (collectable != null) collectable.SetTarget(GameManager.i.GetPlayerGO().transform.position);
             }
         }
 

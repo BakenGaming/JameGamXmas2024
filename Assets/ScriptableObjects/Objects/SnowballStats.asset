@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SnowballStats
   m_EditorClassIdentifier: 
   projectileName: Snowball
-  projectileSprite: {fileID: 1234685617, guid: 4bd4da2aef298e346bae49860ee2d8cb, type: 3}
-  projectileSpeed: 20
+  projectileType: 0
+  projectileSprite:
+  - {fileID: 1339179961, guid: 8eecd9c2a8c303642bd158a7b5735c51, type: 3}
+  projectileSpeed: 15
   lifeTime: 2

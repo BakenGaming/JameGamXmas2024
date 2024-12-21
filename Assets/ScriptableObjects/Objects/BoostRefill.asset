@@ -16,4 +16,4 @@ MonoBehaviour:
   lootGO: {fileID: 2610215278755995407, guid: a6a7b0c89bf0f8e4f82d141494c018c5, type: 3}
   dropChance: 30
   value: 5
-  attractSpeed: 10
+  attractSpeed: 20

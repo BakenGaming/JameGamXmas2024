@@ -27,6 +27,8 @@ public class GameAssets : MonoBehaviour
     public Transform pfTextPopup;
     public GameObject pfPlayerObject;
     public GameObject pfProjectileBase;
+    public GameObject pfCandyCane;
+    public GameObject pfCookie;
   
     public SoundAudioClip[] audioClipArray;
     public MusicAudioClip[] musicTrackArray;

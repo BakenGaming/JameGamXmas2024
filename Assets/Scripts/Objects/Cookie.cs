@@ -5,7 +5,7 @@ using System;
 
 public class Cookie : MonoBehaviour, ICollectable
 {
-public static event Action<int> OnCookieCollected;
+    public static event Action<int> OnCookieCollected;
     private LootSO lootStats;
     public void Initialize(LootSO _lootStats)
     {
@@ -14,7 +14,7 @@ public static event Action<int> OnCookieCollected;
     public void Collect()
     {
         OnCookieCollected?.Invoke(lootStats.value);
-        Destroy(gameObject);
+        ObjectPooler.EnqueueObject(this, "CookieRefill");
     }
 
     public void SetTarget(Vector3 targetPosition)

@@ -62,6 +62,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Boost"",
+                    ""type"": ""Button"",
+                    ""id"": ""265f9273-0a2f-42c9-beb2-868683dccded"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +227,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83e6a249-4958-420a-b177-68107fe603cf"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -230,6 +250,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_TopDownControls_Attack = m_TopDownControls.FindAction("Attack", throwIfNotFound: true);
         m_TopDownControls_Throw = m_TopDownControls.FindAction("Throw", throwIfNotFound: true);
         m_TopDownControls_Pause = m_TopDownControls.FindAction("Pause", throwIfNotFound: true);
+        m_TopDownControls_Boost = m_TopDownControls.FindAction("Boost", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_TopDownControls_Attack;
     private readonly InputAction m_TopDownControls_Throw;
     private readonly InputAction m_TopDownControls_Pause;
+    private readonly InputAction m_TopDownControls_Boost;
     public struct TopDownControlsActions
     {
         private @GameControls m_Wrapper;
@@ -303,6 +325,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_TopDownControls_Attack;
         public InputAction @Throw => m_Wrapper.m_TopDownControls_Throw;
         public InputAction @Pause => m_Wrapper.m_TopDownControls_Pause;
+        public InputAction @Boost => m_Wrapper.m_TopDownControls_Boost;
         public InputActionMap Get() { return m_Wrapper.m_TopDownControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -324,6 +347,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Boost.started += instance.OnBoost;
+            @Boost.performed += instance.OnBoost;
+            @Boost.canceled += instance.OnBoost;
         }
 
         private void UnregisterCallbacks(ITopDownControlsActions instance)
@@ -340,6 +366,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Boost.started -= instance.OnBoost;
+            @Boost.performed -= instance.OnBoost;
+            @Boost.canceled -= instance.OnBoost;
         }
 
         public void RemoveCallbacks(ITopDownControlsActions instance)
@@ -363,5 +392,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnBoost(InputAction.CallbackContext context);
     }
 }

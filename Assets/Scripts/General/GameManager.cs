@@ -46,9 +46,11 @@ public class GameManager : MonoBehaviour
 
     public void SetupObjectPools()
     {
-        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 2, "Cookie");
-        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 2, "Present");
-        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 2, "Snowball");
+        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 20, "Cookie");
+        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 10, "Present");
+        ObjectPooler.SetupPool(GameAssets.i.pfProjectileBase.GetComponent<Projectile>(), 20, "Snowball");
+        ObjectPooler.SetupPool(GameAssets.i.pfCandyCane.GetComponent<CandyCane>(), 10, "CandyCane");
+        ObjectPooler.SetupPool(GameAssets.i.pfCookie.GetComponent<Cookie>(), 10, "CookieRefill");
         
         //The below is placed in location where object is needed from pool
         //==============================

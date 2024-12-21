@@ -14,7 +14,7 @@ public class CandyCane : MonoBehaviour, ICollectable
     public void Collect()
     {
         OnCandyCaneCollected?.Invoke((float)lootStats.value);
-        Destroy(gameObject);
+        ObjectPooler.EnqueueObject(this, "CandyCane");
     }
 
     public void SetTarget(Vector3 targetPosition)
